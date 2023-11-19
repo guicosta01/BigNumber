@@ -19,3 +19,4 @@ $(TARGET): $(SOURCES)
 # Comando para limpar arquivos temporários
 clean:
     rm -f $(TARGET)
+
