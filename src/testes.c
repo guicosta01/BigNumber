@@ -6,3 +6,9 @@ int main()
 
     return 0;
 }
+
+
+
+int teste(int n){
+    return n;
+}
