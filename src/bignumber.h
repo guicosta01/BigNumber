@@ -1,9 +1,9 @@
 #define bignumber
 // Protótipo da função
 
-int tamanho_numero(int n);
+int tamanho_numero(long long int n);
 
-void numero_em_vetor(int n, int tamanho, int* vetor);
+void numero_em_vetor(long long int n, int tamanho, int* vetor);
 
 int soma(int vetor[], int tamanho, int vetor2[], int tamanho2);
 
