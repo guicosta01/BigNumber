@@ -44,12 +44,24 @@ int soma(int vetor[], int tamanho, int vetor2[], int tamanho2){
 void resultado(int vetor[], int tamanho, int vetor2[], int tamanho2){
     printf("Resultado: ");
     if(tamanho >= tamanho2){
-        for(int i = tamanho; i >= 0; i--){
-            printf("%d", vetor[i]);
-        }    
+        if(vetor[tamanho] != 0){
+            for(int i = tamanho; i >= 0; i--){
+                printf("%d", vetor[i]);
+            }    
+        } else {
+            for(int i = tamanho-1; i >= 0; i--){
+                printf("%d", vetor[i]);
+            }
+        }
     } else {
-        for(int i = tamanho; i >= 0; i--){
-            printf("%d", vetor2[i]);
+        if(vetor2[tamanho2] != 0){
+            for(int i = tamanho2; i >= 0; i--){
+                printf("%d", vetor2[i]);
+            }
+        } else {
+            for(int i = tamanho2-1; i >= 0; i--){
+                printf("%d", vetor2[i]);
+            }
         }
     }
 }
