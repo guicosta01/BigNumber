@@ -1,5 +1,6 @@
 #include <bignumber.h>
 
+
 int main(){
     int n;
     printf("Digite um número:\n");
@@ -20,10 +21,17 @@ int main(){
     getchar();
     scanf("%c", &operacao);
 
+    int* maior = maior_numero(vetor, tamanho, vetor2, tamanho2);
+
     if (operacao == '+'){
         soma(vetor, tamanho, vetor2, tamanho2);
-        resultado(vetor, tamanho, vetor2, tamanho2);
     }
     
+    if (operacao == '-'){
+        subtracao(vetor, tamanho, vetor2, tamanho2, maior);
+    }
+    
+    resultado(vetor, tamanho, vetor2, tamanho2, maior, operacao);
+
     return 0;
 }
