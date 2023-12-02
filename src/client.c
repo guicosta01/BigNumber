@@ -1,4 +1,6 @@
-#include <bignumber.h>
+#include "bignumber.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 
 int main(){

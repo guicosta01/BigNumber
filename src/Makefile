@@ -14,9 +14,9 @@ SOURCES = bignumber.c client.c
 
 # Comando para compilar o programa
 $(TARGET): $(SOURCES)
-    $(CC) $(CFLAGS) -o $(TARGET) $(SOURCES)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES)
 
 # Comando para limpar arquivos temporários
 clean:
-    rm -f $(TARGET)
+	rm -f $(TARGET)
 
