@@ -1,6 +1,7 @@
 typedef struct {
     int *v_numbers;
     int tam;
+    int sinal; // 1-pos | 0-neg
 } Bignumber;
 
 Bignumber criar_bignumber(char *number);
