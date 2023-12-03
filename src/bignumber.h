@@ -1,14 +1,12 @@
-#define bignumber
-// Protótipo da função
+typedef struct {
+    int *v_numbers;
+    int tam;
+} Bignumber;
 
-int tamanho_numero(long long int n);
+Bignumber criar_bignumber(char *number);
 
-void numero_em_vetor(long long int n, int tamanho, int* vetor);
+void imprimir_bignumber(Bignumber* bigNum);
 
-int soma(int vetor[], int tamanho, int vetor2[], int tamanho2);
+void free_bignumber(Bignumber *bignumber);
 
-int* maior_numero(int vetor[], int tamanho, int vetor2[], int tamanho2);
-
-void subtracao(int vetor[], int tamanho, int vetor2[], int tamanho2, int maior[]);
-
-void resultado(int vetor[], int tamanho, int vetor2[], int tamanho2, int maior[], char operacao);
+void soma(Bignumber *a, Bignumber *b);

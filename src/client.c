@@ -3,37 +3,25 @@
 #include <stdlib.h>
 
 
-int main(){
-    long long int n;
-    printf("Digite um número:\n");
-    scanf("%lld",&n);
-    int tamanho = tamanho_numero(n);
-    int* vetor = malloc(tamanho*sizeof(int));
-    numero_em_vetor(n, tamanho, vetor);
-    
-    long long int n2;
-    printf("Digite um segundo número:\n");
-    scanf("%lld",&n2);
-    int tamanho2 = tamanho_numero(n2);
-    int* vetor2 = malloc(tamanho2*sizeof(int));
-    numero_em_vetor(n2, tamanho2, vetor2);
-    
-    char operacao;
-    printf("Digite a operação:\n");
-    getchar();
-    scanf("%c", &operacao);
+int main() {
+    char* numberString = "6694040313702587605915853024148959327607962181209848219858753347241188823484327829345978101346634386704707285374370034664125025183146185172";
+    char* numberString2 = "83899394055541715049146244989128901874339534051609227424364978776388956578090181974250128315216757399374354815441690160067408224886785211699886376370394641551835119332674738970308608942583700375425659707470283119307714704079777780154609909070123430778009088607989935683614670663682652144402417907034014382958997572515911431057074258178428583652782910412576198066375533301760114741660296280665816986373698627394651901280253666815961070989808417806314725113361253149555353857420036959";
 
-    int* maior = maior_numero(vetor, tamanho, vetor2, tamanho2);
+    Bignumber bigNum = criar_bignumber(numberString);
+    Bignumber bigNum2 = criar_bignumber(numberString2);
 
-    if (operacao == '+'){
-        soma(vetor, tamanho, vetor2, tamanho2);
-    }
+    printf("A: \n");
+    imprimir_bignumber(&bigNum);
+    printf("B: \n");
+    imprimir_bignumber(&bigNum2);
+
+    printf("Soma: \n");
+    soma(&bigNum, &bigNum2);
     
-    if (operacao == '-'){
-        subtracao(vetor, tamanho, vetor2, tamanho2, maior);
-    }
-    
-    resultado(vetor, tamanho, vetor2, tamanho2, maior, operacao);
+
+    free_bignumber(&bigNum);
+    free_bignumber(&bigNum2);
 
     return 0;
 }
+

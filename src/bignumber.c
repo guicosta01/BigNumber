@@ -1,128 +1,79 @@
 #include "bignumber.h"
-int tamanho_numero(long long int n){
-    if (n < 10){
-        return 1;
-    } else {
-        return tamanho_numero(n/10) + 1;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// typedef struct{
+//     int *v_numbers;
+//     int tam;
+// } Bignumber;
+
+Bignumber criar_bignumber(char *number){
+    Bignumber bignumber;
+
+    int len = strlen(number);
+    bignumber.tam = len;
+    
+    bignumber.v_numbers = malloc(len * sizeof(int));
+    if(bignumber.v_numbers == NULL){
+        printf("Nao a memoria suficente\n");
+        exit (1);
     }
-}
 
-void numero_em_vetor(long long int n, int tamanho, int* vetor){
-    for (int i=0; i<tamanho; i++){
-        vetor[i] = n % 10;
-        n = n / 10;
+    for (int i = 0; i < bignumber.tam; ++i) {
+        bignumber.v_numbers[i] = number[bignumber.tam - i - 1] - '0'; //'0' convert na tabela asc
     }
+
+    return bignumber;
 }
 
-int soma(int vetor[], int tamanho, int vetor2[], int tamanho2){
-    if(tamanho >= tamanho2){
-        for(int i=0; i<tamanho; i++){
-            int adicao = vetor[i] + vetor2[i];
-            if(adicao < 10){
-                vetor[i] = adicao;
-            } else{
-                vetor[i] = adicao - 10;
-                vetor[i+1] += 1;
-            }
-        }
-    } else {
-        for(int i=0; i<tamanho; i++){
-            int adicao = vetor[i] + vetor2[i];
-            if(adicao < 10){
-                vetor2[i] = adicao;
-            } else {
-                vetor2[i] = adicao - 10;
-                vetor2[i+1] += 1;
-            }
-        }        
+void imprimir_bignumber(Bignumber *bignumber) {
+    for (int i = bignumber->tam - 1; i >= 0; --i) {
+        printf("%d", bignumber->v_numbers[i]);
     }
+    printf("\n");
 }
 
-int* maior_numero(int vetor[], int tamanho, int vetor2[], int tamanho2){
-    if(tamanho>tamanho2){
-        return vetor;
-    } else if (tamanho<tamanho2) {
-        return vetor2;
-    } else {
-        for (int i=tamanho-1; i>=0; i--){
-            if (vetor[i] > vetor2[i]){
-                return vetor;
-            } else if (vetor[i] < vetor2[i]){
-                return vetor2;
-            }
-        }
-    }    
+void free_bignumber(Bignumber *bignumber){
+    free(bignumber->v_numbers);
 }
 
-void subtracao(int vetor[], int tamanho, int vetor2[], int tamanho2, int maior[]) {
-    if (maior == vetor) {
-        for (int i = 0; i < tamanho; i++) {
-            if (vetor[i] >= vetor2[i]) {
-                vetor[i] = vetor[i] - vetor2[i];
-            } else {
-                vetor[i] = 10 + vetor[i] - vetor2[i];
-                vetor[i + 1] -= 1;
+
+//soma alterar um dos bignumbers -> A
+void soma(Bignumber *a, Bignumber *b){
+    //a menor 
+    if(a->tam <= b->tam){
+        int resto = 0;
+        for(int i=0; i< a->tam; i++){
+            int soma = a->v_numbers[i] + b->v_numbers[i] + resto;
+
+            if(soma>=10){
+                resto = soma/10;
+                soma = soma%10;
             }
-        }
-    } else {
-        for (int i = 0; i < tamanho2; i++) {
-            if (vetor2[i] >= vetor[i]) {
-                vetor2[i] = vetor2[i] - vetor[i];
-            } else {
-                vetor2[i] = 10 + vetor2[i] - vetor[i];
-                vetor2[i + 1] -= 1;
+            else{
+                resto = 0;
             }
+            
+            b->v_numbers[i] = soma;
         }
+        imprimir_bignumber(b);
     }
-}
-
-void resultado(int vetor[], int tamanho, int vetor2[], int tamanho2, int maior[], char operacao){
-    printf("Resultado: ");
-    if(operacao == '+'){
-        if(tamanho >= tamanho2){
-            if(vetor[tamanho] != 0){
-                for(int i = tamanho; i >= 0; i--){
-                    printf("%d", vetor[i]);
-                }    
-            } else {
-                for(int i = tamanho-1; i >= 0; i--){
-                    printf("%d", vetor[i]);
-                }
+    //b menor 
+    else{
+        int resto = 0;
+        for(int i=0; i< b->tam; i++){
+            int soma = a->v_numbers[i] + b->v_numbers[i] + resto;
+            if(soma>=10){
+                resto = soma/10;
+                soma = soma%10;
             }
-        } else {
-            if(vetor2[tamanho2] != 0){
-                for(int i = tamanho2; i >= 0; i--){
-                    printf("%d", vetor2[i]);
-                }
-            } else {
-                for(int i = tamanho2-1; i >= 0; i--){
-                    printf("%d", vetor2[i]);
-                }
+            else{
+                resto = 0;
             }
+            
+            a->v_numbers[i] = soma;
         }
-    } else if (operacao == '-'){
-        if(maior == vetor){
-            if(vetor[tamanho] != 0){
-                for(int i = tamanho; i >= 0; i--){
-                    printf("%d", vetor[i]);
-                }
-            } else {
-                for(int i = tamanho-1; i >= 0; i--){
-                    printf("%d", vetor[i]);
-                }
-            }
-        } else {
-            if(vetor2[tamanho2] != 0){
-                printf("-");
-                for(int i = tamanho2; i >= 0; i--){
-                    printf("%d", vetor2[i]);
-                }
-            } else {
-                printf("-");
-                for(int i = tamanho2-1; i >= 0; i--){
-                    printf("%d", vetor2[i]);
-                }
-            }
-        }
+        imprimir_bignumber(a);        
     }
 }
