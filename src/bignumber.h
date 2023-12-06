@@ -4,6 +4,8 @@ typedef struct {
     int sinal; // 1-pos | 0-neg
 } Bignumber;
 
+int tamanho(int number);
+
 Bignumber criar_bignumber(char *number);
 
 void imprimir_bignumber(Bignumber* bigNum);
