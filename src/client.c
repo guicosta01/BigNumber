@@ -4,8 +4,19 @@
 
 
 int main() {
-    char* numberString = "-21";
-    char* numberString2 = "10";
+    int x, y;
+    scanf("%d", &x);
+    scanf("%d", &y);
+    
+    int size_x = tamanho(x);
+    int size_y = tamanho(y);
+    
+    // Convertendo int para string
+    char* numberString = malloc(size_x*sizeof(int));
+    char* numberString2 = malloc(size_y*sizeof(int));
+
+    sprintf(numberString, "%d", x);
+    sprintf(numberString2, "%d", y);
 
     Bignumber bigNum = criar_bignumber(numberString);
     Bignumber bigNum2 = criar_bignumber(numberString2);
