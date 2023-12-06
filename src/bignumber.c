@@ -90,6 +90,7 @@ void soma(Bignumber *a, Bignumber *b){
             
             b->v_numbers[i] = soma;
         }
+        b->v_numbers[a->tam] = b->v_numbers[a->tam] + resto;
         imprimir_bignumber(b);
     }
     //b menor 
@@ -107,6 +108,7 @@ void soma(Bignumber *a, Bignumber *b){
             
             a->v_numbers[i] = soma;
         }
-        imprimir_bignumber(a);        
+        a->v_numbers[b->tam] = a->v_numbers[b->tam] + resto;
+        imprimir_bignumber(a);     
     }
 }
