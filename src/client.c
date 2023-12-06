@@ -8,12 +8,9 @@ int main() {
     scanf("%d", &x);
     scanf("%d", &y);
     
-    int size_x = tamanho(x);
-    int size_y = tamanho(y);
-    
     // Convertendo int para string
-    char* numberString = malloc(size_x*sizeof(int));
-    char* numberString2 = malloc(size_y*sizeof(int));
+    char* numberString = malloc(tamanho(x)*sizeof(int));
+    char* numberString2 = malloc(tamanho(y)*sizeof(int));
 
     sprintf(numberString, "%d", x);
     sprintf(numberString2, "%d", y);
@@ -28,9 +25,8 @@ int main() {
     printf("Sinal: %d\n", bigNum2.sinal);
     imprimir_bignumber(&bigNum2);
 
-    printf("Soma: \n");
-    soma(&bigNum, &bigNum2);
-    
+    printf("Subtracao: \n");
+    subtracao(&bigNum, &bigNum2);
 
     free_bignumber(&bigNum);
     free_bignumber(&bigNum2);
