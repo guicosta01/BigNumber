@@ -119,3 +119,39 @@ void soma(Bignumber *a, Bignumber *b){
         imprimir_bignumber(a);     
     }
 }
+
+void subtracao(Bignumber *a, Bignumber *b){
+    //a menor
+    if(a->tam <= b->tam){
+        for(int i=0; i<b->tam; i++){
+            if(b->v_numbers[i] >= a->v_numbers[i]){
+                if(i <= a->tam){
+                    b->v_numbers[i] = b->v_numbers[i] - a->v_numbers[i];
+                }
+            } else {
+                if(i <= a->tam){
+                    b->v_numbers[i+1] = b->v_numbers[i+1] - 1;
+                    b->v_numbers[i] = 10 + b->v_numbers[i] - a->v_numbers[i];
+                }
+            }
+        }
+        b->sinal = 1;
+        imprimir_bignumber(b);
+    }
+    //b menor
+    if(b->tam <= a->tam){
+        for(int i=0; i<a->tam; i++){
+            if(a->v_numbers[i] >= b->v_numbers[i]){
+                if(i <= b->tam){
+                    a->v_numbers[i] = a->v_numbers[i] - b->v_numbers[i];
+                }
+            } else {
+                if(i <= b->tam){
+                    a->v_numbers[i+1] = a->v_numbers[i+1] - 1;
+                    a->v_numbers[i] = 10 + a->v_numbers[i] - b->v_numbers[i];
+                }
+            }
+        }
+        imprimir_bignumber(a);        
+    }
+}
