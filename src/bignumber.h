@@ -13,3 +13,5 @@ void imprimir_bignumber(Bignumber* bigNum);
 void free_bignumber(Bignumber *bignumber);
 
 void soma(Bignumber *a, Bignumber *b);
+
+void subtracao(Bignumber *a, Bignumber *b);
