@@ -2,10 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX 100000000
+
 int main() {
-    char* x = "142";
-    char* y = "132";
+    char* x = malloc(MAX * sizeof(char));
+    char* y = malloc(MAX * sizeof(char));
     char operacao;
+
+    scanf("%s", x);
+    getchar();
+    scanf("%s", y);
+    getchar();
     scanf("%c", &operacao);
     
     Bignumber bigNum = criar_bignumber(x);
@@ -13,18 +20,18 @@ int main() {
     int maior = maior_num(&bigNum, &bigNum2);
 
 
-    printf("A: \n");
-    imprimir_bignumber(&bigNum);
-    printf("B: \n");
-    imprimir_bignumber(&bigNum2);
+    //printf("A: \n");
+    //imprimir_bignumber(&bigNum);
+    //printf("B: \n");
+    //imprimir_bignumber(&bigNum2);
 
     if(operacao == '+'){
-        printf("Soma: \n");
+        //printf("Soma: \n");
         soma(&bigNum, &bigNum2);
     } else if(operacao == '-'){
-        printf("Subtracao: \n");
+        //printf("Subtracao: \n");
         subtracao(&bigNum, &bigNum2, maior);
-        printf("%d", bigNum2.sinal);
+        //printf("%d", bigNum2.sinal);
     }
 
     free_bignumber(&bigNum);
