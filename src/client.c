@@ -3,22 +3,15 @@
 #include <stdlib.h>
 
 int main() {
-    int x, y;
+    char* x = "142";
+    char* y = "132";
     char operacao;
-    scanf("%d", &x);
-    scanf("%d", &y);
-    getchar();
     scanf("%c", &operacao);
     
-    // Convertendo int para string
-    char* numberString = malloc(tamanho(x)*sizeof(int));
-    char* numberString2 = malloc(tamanho(y)*sizeof(int));
+    Bignumber bigNum = criar_bignumber(x);
+    Bignumber bigNum2 = criar_bignumber(y);
+    int maior = maior_num(&bigNum, &bigNum2);
 
-    sprintf(numberString, "%d", x);
-    sprintf(numberString2, "%d", y);
-
-    Bignumber bigNum = criar_bignumber(numberString);
-    Bignumber bigNum2 = criar_bignumber(numberString2);
 
     printf("A: \n");
     imprimir_bignumber(&bigNum);
@@ -30,7 +23,8 @@ int main() {
         soma(&bigNum, &bigNum2);
     } else if(operacao == '-'){
         printf("Subtracao: \n");
-        subtracao(&bigNum, &bigNum2);
+        subtracao(&bigNum, &bigNum2, maior);
+        printf("%d", bigNum2.sinal);
     }
 
     free_bignumber(&bigNum);
