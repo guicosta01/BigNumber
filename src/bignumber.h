@@ -14,4 +14,4 @@ void soma(Bignumber *a, Bignumber *b);
 
 void subtracao(Bignumber *a, Bignumber *b, int maior);
 
-int maior_num(Bignumber *a, Bignumber *b)
+int maior_num(Bignumber *a, Bignumber *b);
