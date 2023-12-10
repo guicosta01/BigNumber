@@ -57,12 +57,23 @@ Bignumber criar_bignumber(char *number){
 
     return bignumber;
 }
+// 00608043 608043
+// vetor -> 34080600
+//  4 
 
 void imprimir_bignumber(Bignumber *bignumber) {
     if (bignumber->sinal == 1){
         printf("-");
     }
-    for (int i = bignumber->tam - 1; i >= 0; --i) {
+    
+
+    int ultimo_dig = bignumber->tam - 1;
+
+    while(bignumber->v_numbers[ultimo_dig]==0){
+        ultimo_dig--;
+    }
+    
+    for (int i = ultimo_dig; i >= 0; --i) {
         printf("%d", bignumber->v_numbers[i]);
     }
     printf("\n");
@@ -90,6 +101,10 @@ void soma(Bignumber *a, Bignumber *b){
             }
             
             b->v_numbers[i] = soma;
+
+            if(i==(a->tam - 1) && resto!=0){
+                b->tam++;
+            }
         }
         
         b->v_numbers[a->tam] = b->v_numbers[a->tam] + resto;
@@ -110,6 +125,11 @@ void soma(Bignumber *a, Bignumber *b){
             }
             
             a->v_numbers[i] = soma;
+
+            if(i==(b->tam - 1) && resto!=0){
+                a->tam++;
+            }
+
         }
         
         a->v_numbers[b->tam] = a->v_numbers[b->tam] + resto;

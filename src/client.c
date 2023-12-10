@@ -1,20 +1,16 @@
 #include "bignumber.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 100000000
 
-int main() {
-    char* x = malloc(MAX * sizeof(char));
-    char* y = malloc(MAX * sizeof(char));
-    char operacao;
+int main(int argc, char *argv[]) {
 
-    scanf("%s", x);
-    getchar();
-    scanf("%s", y);
-    getchar();
-    scanf("%c", &operacao);
-    
+    char* x = argv[1];
+    char* y = argv[2];
+    char operacao = argv[3][0]; // Obtém o primeiro caractere da terceira string
+
     Bignumber bigNum = criar_bignumber(x);
     Bignumber bigNum2 = criar_bignumber(y);
     int maior = maior_num(&bigNum, &bigNum2);
