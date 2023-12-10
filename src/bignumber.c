@@ -22,14 +22,7 @@ char* remove_sinal(char *str) {
     }
 
     return modified_str;
-}
 
-int tamanho(int number){
-    if (number < 10){
-        return 1;
-    } else {
-        return tamanho(number/10) + 1;
-    }
 }
 
 Bignumber criar_bignumber(char *number){
@@ -61,8 +54,6 @@ Bignumber criar_bignumber(char *number){
         bignumber.v_numbers[i] = modified_number[bignumber.tam - i - 1] - '0'; //'0' convert na tabela asc
     }
 
-
-    free(modified_number);    
 
     return bignumber;
 }
@@ -97,7 +88,9 @@ void soma(Bignumber *a, Bignumber *b){
             
             b->v_numbers[i] = soma;
         }
+        
         b->v_numbers[a->tam] = b->v_numbers[a->tam] + resto;
+        
         imprimir_bignumber(b);
     }
     //b menor 
@@ -115,14 +108,16 @@ void soma(Bignumber *a, Bignumber *b){
             
             a->v_numbers[i] = soma;
         }
+        
         a->v_numbers[b->tam] = a->v_numbers[b->tam] + resto;
-        imprimir_bignumber(a);     
+
+        imprimir_bignumber(a);        
     }
 }
 
-void subtracao(Bignumber *a, Bignumber *b){
+void subtracao(Bignumber *a, Bignumber *b, int maior){
     //a menor
-    if(a->tam <= b->tam){
+    if(a->tam < b->tam){
         for(int i=0; i<b->tam; i++){
             if(b->v_numbers[i] >= a->v_numbers[i]){
                 if(i <= a->tam){
@@ -139,7 +134,7 @@ void subtracao(Bignumber *a, Bignumber *b){
         imprimir_bignumber(b);
     }
     //b menor
-    if(b->tam <= a->tam){
+    if(b->tam < a->tam){
         for(int i=0; i<a->tam; i++){
             if(a->v_numbers[i] >= b->v_numbers[i]){
                 if(i <= b->tam){
@@ -153,5 +148,50 @@ void subtracao(Bignumber *a, Bignumber *b){
             }
         }
         imprimir_bignumber(a);        
+    }
+    //mesmo tamanho
+    if (b->tam == a->tam){
+        //se b é maior
+        if (maior == 2){
+            for(int i=0; i<b->tam; i++){
+                if(b->v_numbers[i] >= a->v_numbers[i]){
+                    if(i <= a->tam){
+                        b->v_numbers[i] = b->v_numbers[i] - a->v_numbers[i];
+                    }
+                } else {
+                    if(i <= a->tam){
+                        b->v_numbers[i+1] = b->v_numbers[i+1] - 1;
+                        b->v_numbers[i] = 10 + b->v_numbers[i] - a->v_numbers[i];
+                    }
+                }
+            }
+            b->sinal = 1;
+            imprimir_bignumber(b);
+        } else {
+            for(int i=0; i<a->tam; i++){
+                if(a->v_numbers[i] >= b->v_numbers[i]){
+                    if(i <= b->tam){
+                        a->v_numbers[i] = a->v_numbers[i] - b->v_numbers[i];
+                    }
+                } else {
+                    if(i <= b->tam){
+                        a->v_numbers[i+1] = a->v_numbers[i+1] - 1;
+                        a->v_numbers[i] = 10 + a->v_numbers[i] - b->v_numbers[i];
+                    }
+                }
+            }
+            imprimir_bignumber(a);
+        }
+    }
+}
+
+int maior_num(Bignumber *a, Bignumber *b){
+    for (int i = 0; i<a->tam; i++){
+        if(a->v_numbers[i] > b->v_numbers[i]){
+            return 1;
+        }
+        if(b->v_numbers[i] > a->v_numbers[i]){
+            return 2;
+        }
     }
 }
