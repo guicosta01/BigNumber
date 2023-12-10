@@ -59,6 +59,9 @@ Bignumber criar_bignumber(char *number){
 }
 
 void imprimir_bignumber(Bignumber *bignumber) {
+    if (bignumber->sinal == 1){
+        printf("-");
+    }
     for (int i = bignumber->tam - 1; i >= 0; --i) {
         printf("%d", bignumber->v_numbers[i]);
     }
