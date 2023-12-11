@@ -167,7 +167,37 @@ void soma(Bignumber *a, Bignumber *b){
 
 void subtracao(Bignumber *a, Bignumber *b, int maior){
     //a menor
+    
+    //tira 0 -> a
+    /*
+    int ultimo_dig = a->tam - 1;
+
+    while(a->v_numbers[ultimo_dig]==0){
+        a->v_numbers = realloc(a->v_numbers, (ultimo_dig)* sizeof(int));
+        ultimo_dig--;
+        a->tam--;
+    }
+
+    int ultimo_dig_b = b->tam - 1;
+
+    while(b->v_numbers[ultimo_dig_b]==0){
+        b->v_numbers = realloc(b->v_numbers, (ultimo_dig_b)* sizeof(int));
+        ultimo_dig_b--;
+        b->tam--;
+    }
+    */
+  
     if(a->tam < b->tam){
+
+        //printf("DEbug 1\n");
+
+        a->v_numbers = realloc(a->v_numbers, (b->tam)* sizeof(int));
+        for(int j=a->tam; j<b->tam; j++){
+            a->v_numbers[j] = 0;
+        }
+        a->tam = b->tam;
+
+
         for(int i=0; i<b->tam; i++){
             if(b->v_numbers[i] >= a->v_numbers[i]){
                 if(i <= a->tam){
@@ -184,7 +214,7 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
         imprimir_bignumber(b);
     }
     //b menor
-    if(b->tam < a->tam){
+    else if(b->tam < a->tam){
 
         b->v_numbers = realloc(b->v_numbers, (a->tam)* sizeof(int));
         for(int j=b->tam; j<a->tam; j++){
@@ -208,6 +238,7 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
     }
     //mesmo tamanho
     else{
+        //printf("DEbug 3\n");
         //se b é maior
         if (maior == 2){
             for(int i=0; i<b->tam; i++){
@@ -222,9 +253,16 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                     }
                 }
             }
-            b->sinal = 1;
+            if(b->sinal == 0){
+                b->sinal = 0;
+            }
+            else{
+                b->sinal = 1;
+            }
+            
             imprimir_bignumber(b);
         } else {
+
             for(int i=0; i<a->tam; i++){
                 if(a->v_numbers[i] >= b->v_numbers[i]){
                     if(i <= b->tam){
@@ -232,7 +270,7 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                     }
                 } else {
                     if(i <= b->tam){
-                        a->v_numbers[i+1] = a->v_numbers[i+1] - 1;
+                        a->v_numbers[i+1] = a->v_numbers[i+1] - 1;                    
                         a->v_numbers[i] = 10 + a->v_numbers[i] - b->v_numbers[i];
                     }
                 }
@@ -243,11 +281,11 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
 }
 
 int maior_num(Bignumber *a, Bignumber *b){
-    for (int i = 0; i<a->tam; i++){
+    for (int i = a->tam-1; i>=0; i--){
         if(a->v_numbers[i] > b->v_numbers[i]){
             return 1;
         }
-        if(b->v_numbers[i] > a->v_numbers[i]){
+        else if(b->v_numbers[i] > a->v_numbers[i]){
             return 2;
         }
     }

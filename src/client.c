@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     int maior = maior_num(&bigNum, &bigNum2);
 
 
+
     //printf("A: \n");
     //imprimir_bignumber(&bigNum);
     //printf("B: \n");
@@ -23,7 +24,16 @@ int main(int argc, char *argv[]) {
 
     if(operacao == '+'){
         if(bigNum.sinal==1 && bigNum2.sinal==0){
-            subtracao(&bigNum2, &bigNum, maior);
+            if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 1)){
+                subtracao(&bigNum, &bigNum2, maior);
+            }
+            else if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 2)){
+                subtracao(&bigNum, &bigNum2, maior);
+            }
+            else{
+                subtracao(&bigNum2, &bigNum, maior);
+            }
+            
         }
         else if(bigNum.sinal==0 && bigNum2.sinal==1){
             subtracao(&bigNum, &bigNum2, maior);
