@@ -37,3 +37,8 @@ Com o objetivo de otimizar o tempo de execução, aprimoramos o código ao modif
 - Divisão de trabalho:
 Para otimizar nosso processo de desenvolvimento, dividimos as tarefas iniciais entre dois colaboradores. Uma pessoa ficou encarregada da implementação inicial da função de soma, enquanto a outra pessoa assumiu a responsabilidade pela subtração. Posteriormente, unimos esforços para realizar uma depuração conjunta do código. Durante essa fase, trabalhamos em equipe para identificar e corrigir problemas que surgiram durante os testes
 
+
+
+Futuras implementações: 
+-> Multiplicação 
+-> Divisão
