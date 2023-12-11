@@ -82,18 +82,15 @@ int* aumentarTamanho(int *vetor, int tamanhoAtual, int novoTamanho) {
     int *novoVetor = (int *)malloc(sizeof(int) * novoTamanho);
 
     if (novoVetor == NULL) {
-        // Tratamento de erro caso a alocação falhe
         printf("Erro: Falha na alocação de memória.\n");
         return NULL;
     }
-
-    // Copia os elementos do vetor original para o novo vetor
     for (int i = 0; i < tamanhoAtual; i++) {
         novoVetor[i] = vetor[i];
     }
 
-    free(vetor); // Libera a memória do vetor original
-    return novoVetor; // Retorna o ponteiro para o novo vetor
+    free(vetor); 
+    return novoVetor; 
 }
 
 //soma alterar um dos bignumbers -> A
@@ -167,29 +164,7 @@ void soma(Bignumber *a, Bignumber *b){
 
 void subtracao(Bignumber *a, Bignumber *b, int maior, char op){
     //a menor
-    
-    //tira 0 -> a
-    /*
-    int ultimo_dig = a->tam - 1;
-
-    while(a->v_numbers[ultimo_dig]==0){
-        a->v_numbers = realloc(a->v_numbers, (ultimo_dig)* sizeof(int));
-        ultimo_dig--;
-        a->tam--;
-    }
-
-    int ultimo_dig_b = b->tam - 1;
-
-    while(b->v_numbers[ultimo_dig_b]==0){
-        b->v_numbers = realloc(b->v_numbers, (ultimo_dig_b)* sizeof(int));
-        ultimo_dig_b--;
-        b->tam--;
-    }
-    */
-  
     if(a->tam < b->tam){
-
-        //printf("DEbug 1\n");
 
         a->v_numbers = realloc(a->v_numbers, (b->tam)* sizeof(int));
         for(int j=a->tam; j<b->tam; j++){
@@ -253,7 +228,6 @@ void subtracao(Bignumber *a, Bignumber *b, int maior, char op){
     }
     //mesmo tamanho
     else{
-        //printf("DEbug 3\n");
         //se b é maior
         if (maior == 2){
             for(int i=0; i<b->tam; i++){
@@ -268,6 +242,8 @@ void subtracao(Bignumber *a, Bignumber *b, int maior, char op){
                     }
                 }
             }
+
+            //tratamento de sinal
             if(op == '+'){
                 if(b->sinal == 0){
                     b->sinal = 0;
@@ -306,6 +282,7 @@ void subtracao(Bignumber *a, Bignumber *b, int maior, char op){
     }
 }
 
+//func para indicar o maior num em modulo 
 int maior_num(Bignumber *a, Bignumber *b){
     for (int i = a->tam-1; i>=0; i--){
         if(a->v_numbers[i] > b->v_numbers[i]){
