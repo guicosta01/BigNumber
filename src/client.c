@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 100000000
+
 
 int main(int argc, char *argv[]) {
 
@@ -22,12 +22,23 @@ int main(int argc, char *argv[]) {
     //imprimir_bignumber(&bigNum2);
 
     if(operacao == '+'){
-        //printf("Soma: \n");
-        soma(&bigNum, &bigNum2);
+        if(bigNum.sinal==1 && bigNum2.sinal==0){
+            subtracao(&bigNum2, &bigNum, maior);
+        }
+        else if(bigNum.sinal==0 && bigNum2.sinal==1){
+            subtracao(&bigNum, &bigNum2, maior);
+        }
+        else{
+            soma(&bigNum, &bigNum2);
+        }
+        
     } else if(operacao == '-'){
         //printf("Subtracao: \n");
         subtracao(&bigNum, &bigNum2, maior);
         //printf("%d", bigNum2.sinal);
+    }
+    else{
+        printf("Feature will be implemented\n");
     }
 
     free_bignumber(&bigNum);

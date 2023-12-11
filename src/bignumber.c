@@ -57,22 +57,16 @@ Bignumber criar_bignumber(char *number){
 
     return bignumber;
 }
-// 00608043 608043
-// vetor -> 34080600
-//  4 
 
 void imprimir_bignumber(Bignumber *bignumber) {
     if (bignumber->sinal == 1){
         printf("-");
     }
-    
-
     int ultimo_dig = bignumber->tam - 1;
 
     while(bignumber->v_numbers[ultimo_dig]==0){
         ultimo_dig--;
     }
-    
     for (int i = ultimo_dig; i >= 0; --i) {
         printf("%d", bignumber->v_numbers[i]);
     }
@@ -84,10 +78,35 @@ void free_bignumber(Bignumber *bignumber){
 }
 
 
+int* aumentarTamanho(int *vetor, int tamanhoAtual, int novoTamanho) {
+    int *novoVetor = (int *)malloc(sizeof(int) * novoTamanho);
+
+    if (novoVetor == NULL) {
+        // Tratamento de erro caso a alocação falhe
+        printf("Erro: Falha na alocação de memória.\n");
+        return NULL;
+    }
+
+    // Copia os elementos do vetor original para o novo vetor
+    for (int i = 0; i < tamanhoAtual; i++) {
+        novoVetor[i] = vetor[i];
+    }
+
+    free(vetor); // Libera a memória do vetor original
+    return novoVetor; // Retorna o ponteiro para o novo vetor
+}
+
 //soma alterar um dos bignumbers -> A
 void soma(Bignumber *a, Bignumber *b){
     //a menor 
     if(a->tam <= b->tam){
+
+        a->v_numbers = realloc(a->v_numbers, (b->tam)* sizeof(int));
+        for(int j=a->tam; j<b->tam; j++){
+            a->v_numbers[j] = 0;
+        }
+        a->tam = b->tam;
+
         int resto = 0;
         for(int i=0; i< a->tam; i++){
             int soma = a->v_numbers[i] + b->v_numbers[i] + resto;
@@ -99,21 +118,29 @@ void soma(Bignumber *a, Bignumber *b){
             else{
                 resto = 0;
             }
-            
-            b->v_numbers[i] = soma;
 
-            if(i==(a->tam - 1) && resto!=0){
+            if((i==(a->tam-1)) && (a->v_numbers[i] + b->v_numbers[i] + resto>=10)){
+                b->v_numbers = realloc(b->v_numbers, (b->tam+1)* sizeof(int));
                 b->tam++;
             }
+
+            b->v_numbers[i] = soma;
+
         }
-        
         b->v_numbers[a->tam] = b->v_numbers[a->tam] + resto;
         
         imprimir_bignumber(b);
     }
+
     //b menor 
     else{
+        b->v_numbers = realloc(b->v_numbers, (a->tam)* sizeof(int));
+        for(int j=b->tam; j<a->tam; j++){
+            b->v_numbers[j] = 0;
+        }
+        b->tam = a->tam;
         int resto = 0;
+
         for(int i=0; i< b->tam; i++){
             int soma = a->v_numbers[i] + b->v_numbers[i] + resto;
             if(soma>=10){
@@ -123,20 +150,20 @@ void soma(Bignumber *a, Bignumber *b){
             else{
                 resto = 0;
             }
+
+            if((i==(b->tam-1)) && (a->v_numbers[i] + b->v_numbers[i] + resto>=10)){
+                a->v_numbers = realloc(a->v_numbers, (a->tam+1)* sizeof(int));
+                a->tam++;
+            }            
             
             a->v_numbers[i] = soma;
-
-            if(i==(b->tam - 1) && resto!=0){
-                a->tam++;
             }
-
-        }
-        
+            
         a->v_numbers[b->tam] = a->v_numbers[b->tam] + resto;
-
-        imprimir_bignumber(a);        
-    }
+        imprimir_bignumber(a);  
+    }      
 }
+    
 
 void subtracao(Bignumber *a, Bignumber *b, int maior){
     //a menor
@@ -158,6 +185,13 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
     }
     //b menor
     if(b->tam < a->tam){
+
+        b->v_numbers = realloc(b->v_numbers, (a->tam)* sizeof(int));
+        for(int j=b->tam; j<a->tam; j++){
+            b->v_numbers[j] = 0;
+        }
+        b->tam = a->tam;
+
         for(int i=0; i<a->tam; i++){
             if(a->v_numbers[i] >= b->v_numbers[i]){
                 if(i <= b->tam){
@@ -167,13 +201,13 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                 if(i <= b->tam){
                     a->v_numbers[i+1] = a->v_numbers[i+1] - 1;
                     a->v_numbers[i] = 10 + a->v_numbers[i] - b->v_numbers[i];
-                }
+                }    
             }
         }
         imprimir_bignumber(a);        
     }
     //mesmo tamanho
-    if (b->tam == a->tam){
+    else{
         //se b é maior
         if (maior == 2){
             for(int i=0; i<b->tam; i++){
