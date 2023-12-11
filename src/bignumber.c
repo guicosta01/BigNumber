@@ -165,7 +165,7 @@ void soma(Bignumber *a, Bignumber *b){
 }
     
 
-void subtracao(Bignumber *a, Bignumber *b, int maior){
+void subtracao(Bignumber *a, Bignumber *b, int maior, char op){
     //a menor
     
     //tira 0 -> a
@@ -210,7 +210,22 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                 }
             }
         }
-        b->sinal = 1;
+        if(op == '+'){
+            if(b->sinal == 0){
+                b->sinal = 0;
+            }
+            else{
+                b->sinal = 1;
+            }
+        }
+        if(op == '-'){
+            if(b->sinal == 0){
+                b->sinal = 1;
+            }
+            else{
+                b->sinal = 0;
+            }                
+        }
         imprimir_bignumber(b);
     }
     //b menor
@@ -233,7 +248,7 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                     a->v_numbers[i] = 10 + a->v_numbers[i] - b->v_numbers[i];
                 }    
             }
-        }
+        }        
         imprimir_bignumber(a);        
     }
     //mesmo tamanho
@@ -253,12 +268,23 @@ void subtracao(Bignumber *a, Bignumber *b, int maior){
                     }
                 }
             }
-            if(b->sinal == 0){
-                b->sinal = 0;
+            if(op == '+'){
+                if(b->sinal == 0){
+                    b->sinal = 0;
+                }
+                else{
+                    b->sinal = 1;
+                }
             }
-            else{
-                b->sinal = 1;
+            if(op == '-'){
+                if(b->sinal == 0){
+                    b->sinal = 1;
+                }
+                else{
+                    b->sinal = 0;
+                }                
             }
+
             
             imprimir_bignumber(b);
         } else {

@@ -12,7 +12,7 @@ void free_bignumber(Bignumber *bignumber);
 
 void soma(Bignumber *a, Bignumber *b);
 
-void subtracao(Bignumber *a, Bignumber *b, int maior);
+void subtracao(Bignumber *a, Bignumber *b, int maior, char operacao);
 
 int maior_num(Bignumber *a, Bignumber *b);
 

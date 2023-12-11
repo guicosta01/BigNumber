@@ -25,27 +25,49 @@ int main(int argc, char *argv[]) {
     if(operacao == '+'){
         if(bigNum.sinal==1 && bigNum2.sinal==0){
             if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 1)){
-                subtracao(&bigNum, &bigNum2, maior);
+                subtracao(&bigNum, &bigNum2, maior, operacao);
             }
             else if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 2)){
-                subtracao(&bigNum, &bigNum2, maior);
+                subtracao(&bigNum, &bigNum2, maior, operacao);
             }
             else{
-                subtracao(&bigNum2, &bigNum, maior);
+                subtracao(&bigNum2, &bigNum, maior, operacao);
             }
             
         }
         else if(bigNum.sinal==0 && bigNum2.sinal==1){
-            subtracao(&bigNum, &bigNum2, maior);
+            subtracao(&bigNum, &bigNum2, maior, operacao);
         }
         else{
             soma(&bigNum, &bigNum2);
         }
         
     } else if(operacao == '-'){
-        //printf("Subtracao: \n");
-        subtracao(&bigNum, &bigNum2, maior);
-        //printf("%d", bigNum2.sinal);
+        if(bigNum.sinal==1 && bigNum2.sinal==0){
+            //printf("DEGUB1\n");
+            if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 1)){
+                subtracao(&bigNum2, &bigNum, maior, operacao);
+            }
+            else if((bigNum.tam < bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 2)){
+                subtracao(&bigNum2, &bigNum, maior, operacao);
+            }
+            else{
+                subtracao(&bigNum, &bigNum2, maior, operacao);
+            }
+        }
+        else if(bigNum.sinal==0 && bigNum2.sinal==1){
+            soma(&bigNum, &bigNum2);
+        }
+        else{
+            //printf("DEGUB3\n");
+            // - - - tam - maior 1 ou maior2
+            if((bigNum.tam > bigNum2.tam) || ((bigNum.tam == bigNum2.tam) && maior == 1)){
+                subtracao(&bigNum, &bigNum2, maior, operacao);
+            }
+            else{
+                subtracao(&bigNum, &bigNum2, maior, operacao);
+            }
+        }            
     }
     else{
         printf("Feature will be implemented\n");
