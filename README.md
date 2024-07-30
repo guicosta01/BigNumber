@@ -1,8 +1,3 @@
-# BigNumber
-
-Nomes e RA’s:
-11201921774 - Guilherme Ferreira Costa
-11202020632 - Henrique Allucci Gonçalves
 
 – Uma explicação de como foi representado o BigNumber.
 
